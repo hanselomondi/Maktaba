@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_17_214345) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_17_214723) do
   create_table "book_copies", force: :cascade do |t|
     t.integer "book_id", null: false
     t.string "serial_number"
@@ -35,5 +35,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_214345) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "borrowing_records", force: :cascade do |t|
+    t.integer "book_copy_id", null: false
+    t.integer "borrower_id", null: false
+    t.date "date_borrowed"
+    t.date "date_returned"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_copy_id"], name: "index_borrowing_records_on_book_copy_id"
+    t.index ["borrower_id"], name: "index_borrowing_records_on_borrower_id"
+  end
+
   add_foreign_key "book_copies", "books"
+  add_foreign_key "borrowing_records", "book_copies"
+  add_foreign_key "borrowing_records", "borrowers"
 end
