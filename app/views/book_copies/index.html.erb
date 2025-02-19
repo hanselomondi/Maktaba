@@ -1,2 +1,28 @@
-<h1>BookCopies#index</h1>
-<p>Find me in app/views/book_copies/index.html.erb</p>
+<h1>Copies of '<%= @book.title %>'</h1>
+
+<% if @book_copies.any? %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Serial Number</th>
+        <th>Availability</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @book_copies.each do |copy| %>
+        <tr>
+          <td><%= copy.serial_number %></td>
+          <td><%= copy.available? ? "Available" : "Not Available" %></td>
+          <td>
+            <%= link_to "Delete", book_copy_path(copy), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No copies available.</p>
+<% end %>
+
+<%= link_to "Back to Books", books_path, class: "btn btn-secondary" %>
