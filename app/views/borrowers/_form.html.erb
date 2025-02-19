@@ -1,0 +1,32 @@
+<%= form_with(model: @borrower, local: true) do |form| %>
+    <% if borrower.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(borrower.errors.count, "error") %> prohibited this borrower from being saved:</h2>
+            <ul>
+                <% borrower.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+        </div>
+    <% end %>
+
+    <div class="field form-group">
+        <% form.label :name %>
+        <%= form.text_field :name, class: "form-control", placeholder:"Borrower Name" %>
+    </div>
+    <br/>
+
+    <div class="field form-group">
+        <% form.label :email %>
+        <%= form.text_field :email, class: "form-control", placeholder:"Email" %>
+    </div>
+    <br/>
+
+    <div class="field form-group">
+        <% form.label :phone %>
+        <%= form.text_field :phone, class: "form-control", placeholder:"Phone" %>
+    </div>
+    <br/>
+    <div class="actions">
+        <%= form.submit "Save", class: "btn btn-secondary" %>
+    </div>
+<% end %>
