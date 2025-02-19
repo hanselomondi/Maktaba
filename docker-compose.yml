@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: maktaba
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      RAILS_ENV: production
+      BUNDLE_DEPLOYMENT: "1"
+      BUNDLE_PATH: "/usr/local/bundle"
+      BUNDLE_WITHOUT: "development"
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}" # Ensure this is set in an .env file or passed manually
+    volumes:
+      - "sqlite_data:/rails/db"   # Persist SQLite database
+      - "rails_storage:/rails/storage"  # Persist ActiveStorage files
+      - "rails_logs:/rails/log"  # Persist logs
+    depends_on: 
+      - worker
+
+  worker:
+    build: .
+    container_name: maktaba_worker
+    restart: unless-stopped
+    command: ["bin/rails", "solid_queue:work"]  # Start Solid Queue worker
+    environment:
+      RAILS_ENV: production
+      BUNDLE_DEPLOYMENT: "1"
+      BUNDLE_PATH: "/usr/local/bundle"
+      BUNDLE_WITHOUT: "development"
+    volumes:
+      - "sqlite_data:/rails/db"
+      - "rails_storage:/rails/storage"
+      - "rails_logs:/rails/log"
+
+volumes:
+  sqlite_data:
+  rails_storage:
+  rails_logs:
