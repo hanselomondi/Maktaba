@@ -15,7 +15,7 @@ class BorrowingRecordsController < ApplicationController
 
     if book_copy.available?
       @borrower.borrowing_records.create(book_copy: book_copy, date_borrowed: Date.today)
-      redirect_to borrower_borrowing_records_path(@borrower), notice: "Book borrowed successfully!"
+      redirect_to borrower_path(@borrower), notice: "Book borrowed successfully!"
     else
       redirect_to books_path, alert: "Book is already borrowed!"
     end

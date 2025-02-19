@@ -12,9 +12,9 @@ class BorrowersController < ApplicationController
   end
 
   def create
-    borrower = Borrower.new(borrower_params)
-    if borrower.save
-      redirect_to borrower_path(borrower), notice: "Borrower created successfully!"
+    @borrower = Borrower.new(borrower_params)
+    if @borrower.save
+      redirect_to borrower_path(@borrower), notice: "Borrower created successfully!"
     else
       render :new, alert: "Borrower creation failed!", status: :unprocessable_entity
     end
