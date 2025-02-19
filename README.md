@@ -79,6 +79,9 @@ If you prefer local development **without Docker**, follow these steps:
 
 ## Thought Process and Implementation Logic
 
+### System Overview
+<img src="app/assets/images/Maktaba_Overview.png" alt="Overview of the Maktaba database schema" />
+
 ### Functional Requirements
 - CRUD operations for books.
 - Lending and returning books with borrower information.
