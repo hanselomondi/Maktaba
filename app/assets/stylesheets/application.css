@@ -8,3 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ .text-hover-underline:hover {
+    text-decoration: underline !important;
+}
+

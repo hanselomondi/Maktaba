@@ -11,6 +11,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :books
+  resources :books do
+    resources :book_copies, only: [:index, :new, :create]
+  end
+  resources :book_copies, only: [:show, :destroy]
+  resources :borrowers do 
+    resources :borrowing_records, only: [:index, :update, :new] do
+      post "borrow" => "borrowing_records#borrow", on: :collection
+      put "return_book" => "borrowing_records#return_book", on: :collection
+    end
+  end
+  resources :borrowing_records, only: [:index]
   root "books#index"
 end

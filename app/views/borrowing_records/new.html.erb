@@ -1,0 +1,18 @@
+<h1>Borrow a Book</h1>
+<%= form_with url: borrow_borrower_borrowing_records_path(@borrower), method: :post do |f| %>
+  <div class="form-group">
+    <label for="book_copy_id">Select Book:</label>
+    <select name="book_copy_id" id="book_copy_id" class="form-control">
+      <% @books.each do |book| %>
+        <% book.book_copies.each do |copy| %>
+          <option value="<%= copy.id %>"><%= book.title %> - Copy #<%= copy.serial_number %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+  <br/>
+  <%= f.submit "Borrow", class: "btn btn-primary btn-sm" %>
+<% end %>
+<br/>
+
+<%= link_to "Back", borrower_borrowing_records_path(@borrower), class: "btn btn-secondary btn-sm" %>
